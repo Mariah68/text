@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Obiecte Student</title>
+  </head>
+
+  <body>
+    <script>
+      class Student {
+        constructor(name, address, phone, course) {
+          this.name = name;
+          this.address = address;
+          this.phone = phone;
+          this.course = course;
+        }
+
+        getInfo() {
+          return `${this.name}<br>${this.address}<br>${this.phone}<br>${this.course}<br><br>`;
+        }
+      }
+
+      async function readFile() {
+        const response = await fetch("https://github.com/Mariah68/text/blob/main/students.txt");
+        const data = await response.text();
+        const lines = data.split("\n");
+
+        const students = [];
+        for (let i = 0; i < lines.length; i += 4) {
+          const name = lines[i];
+          const address = lines[i + 1];
+          const phone = lines[i + 2];
+          const course = lines[i + 3];
+
+          const student = new Student(name, address, phone, course);
+          students.push(student);
+        }
+
+        students.forEach((student) => {
+          document.write(student.getInfo());
+        });
+      }
+
+      readFile();
+    </script>
+  </body>
+</html>
